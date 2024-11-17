@@ -247,6 +247,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The Huskers match up nicely against Wisconsin and actually outperform them by 70 rebounds in total. But when you look at the red dots, there is a clear advantage for the Badgers.</p>
+<p>How does Nebraska continuously out rebound teams on the defensive side but cannot keep up with them when they change sides. Is it a lack of agressiveness or size?</p>
+<p>Speaking of size, let’s compare them to the cream of the crop, the Purdue Boilermakers.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -275,6 +278,169 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Yikes. Purdue dominated both total rebounds and offensive rebounds vs the Huskers but they had the best rebounder in college basketball in 7’4 inch Zach Edey so it was not a shock to see them with a clear advantage over the Huskers.</p>
+<p>But if we were to compare them to the entire Big Ten in both total and offensive rebounds, where would they rank and what can it tell us?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>big10 <span class="ot">&lt;-</span> basketball <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"Big Ten"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>huskers <span class="ot">&lt;-</span> basketball <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    Team <span class="sc">==</span> <span class="st">"Nebraska"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>big10, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Team, TeamTotalRebounds), <span class="at">weight=</span>TeamTotalRebounds)) <span class="sc">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>huskers, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Team, TeamTotalRebounds), <span class="at">weight=</span>TeamTotalRebounds), <span class="at">fill=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">labs</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"4th in the Big Ten in total rebounds: Nebraska dominates defensively"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Nebraska's game plan was to control the paint and boxout, they showed us they can do that but how does it compare offensively"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Team"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Rebounds"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Rebound Type"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source | Basketball Reference | By: Caleb Clark"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face=</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Well this tells me that Coach Fred Hoiberg makes sure that Nebraska boxes out and controls the defensive side of the court. Illinois and Purdue are a cut above everyone else but those Huskers aren’t too far behind.</p>
+<p>Now it is time to check out where Nebraska is on the other end. Spoiler alert, it’s not as good.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>big10, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Team, TeamOffRebounds), <span class="at">weight=</span>TeamOffRebounds)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>huskers, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Team, TeamOffRebounds), <span class="at">weight=</span>TeamOffRebounds), <span class="at">fill=</span><span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">labs</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The downfall of the Huskers. Their rebounding formula did not translate to the offensive side of the ball"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"They fell short not generating enough second chance opportunities"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Team"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Offensive Rebounds"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Rebound Type"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source | Basketball Reference | By: Caleb Clark"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face=</span> <span class="st">"bold"</span>),</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Is it a lack of effort, guys not following their shots? Something tells me it has to do with their lack of size too. No one on the roster was over the height of six foot nine. Boxing out can obviously get you rebounds on the defensive end as the Huskers have shown, but they have an issue at getting around other teams taller players when they are on offense.</p>
+<p>Now instead of just seeing a small sample size like the Big Ten, how about we see where Nebraska ends up around the NCAA, against some of the top teams in the entire country.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ncaa_rebounds <span class="ot">&lt;-</span> basketball <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"Big Ten"</span> <span class="sc">|</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"SEC"</span> <span class="sc">|</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Pac-12"</span> <span class="sc">|</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"ACC"</span> <span class="sc">|</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"WAC"</span> <span class="sc">|</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Big 12"</span> <span class="sc">|</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Sun Belt"</span> <span class="sc">|</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"SWAC"</span> <span class="sc">|</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Summit"</span> <span class="sc">|</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Southland"</span> <span class="sc">|</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Patriot"</span> <span class="sc">|</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"OVC"</span> <span class="sc">|</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"NEC"</span> <span class="sc">|</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"MWC"</span> <span class="sc">|</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"MVC"</span> <span class="sc">|</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"MEAC"</span> <span class="sc">|</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span><span class="st">"MAC"</span> <span class="sc">|</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"MAAC"</span> <span class="sc">|</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Ivy"</span> <span class="sc">|</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Independent"</span> <span class="sc">|</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Horizon"</span> <span class="sc">|</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"CUSA"</span> <span class="sc">|</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"CAA"</span> <span class="sc">|</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Big West"</span> <span class="sc">|</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Big South"</span> <span class="sc">|</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Big Sky"</span> <span class="sc">|</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"Big East"</span> <span class="sc">|</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"AEC"</span> <span class="sc">|</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"AAC"</span> <span class="sc">|</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"A-Sun"</span> <span class="sc">|</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>           Conference <span class="sc">==</span> <span class="st">"A-10"</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">%&gt;%</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">Total_Offensive_Rebounds =</span> <span class="fu">sum</span>(TeamOffRebounds, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">Total_Rebounds =</span> <span class="fu">sum</span>(TeamTotalRebounds, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Rebounds), <span class="fu">desc</span>(Total_Offensive_Rebounds)) </span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>top_teams<span class="ot">&lt;-</span>ncaa_rebounds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Team<span class="sc">==</span><span class="st">"Purdue"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Texas A&amp;M"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Arizona"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Wisconsin"</span><span class="sc">|</span>Team<span class="sc">==</span><span class="st">"Florida"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Connecticut"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Nebraska"</span><span class="sc">|</span> Team<span class="sc">==</span><span class="st">"Rutgers"</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>rebound_totals<span class="ot">&lt;-</span>ncaa_rebounds <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(ncaa_rebounds, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Team"</span>))</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>ncaa_rebounds, <span class="fu">aes</span>(<span class="at">x=</span>Total_Rebounds, <span class="at">y=</span>Total_Offensive_Rebounds),<span class="at">color=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> top_teams, <span class="fu">aes</span>(<span class="at">x=</span>Total_Rebounds, <span class="at">y=</span>Total_Offensive_Rebounds),<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_smooth</span>(<span class="at">data =</span> rebound_totals, <span class="fu">aes</span>(<span class="at">x=</span>Total_Rebounds.x, <span class="at">y=</span> Total_Offensive_Rebounds.y),<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_text</span>(<span class="at">data=</span>top_teams, <span class="fu">aes</span>(<span class="at">x=</span>Total_Rebounds, <span class="at">y=</span>Total_Offensive_Rebounds, <span class="at">label=</span>Team))<span class="sc">+</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span> <span class="st">"Total rebounds during the 2023-24 season"</span>,</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="st">"Offensive rebounds during 2023-24 season"</span>,</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Huskers rebounding compared to top teams in NCAA"</span>,</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle=</span> <span class="st">"Nebraksa competed defensively against some of the top teams in the NCAA but fell short on the offensive glass"</span>,</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption=</span><span class="st">"Source | Basketball Reference | By: Caleb Clark"</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>)<span class="sc">+</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face=</span> <span class="st">"bold"</span>),</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>),</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can see, they are in the top percentile in defensive rebounding and it should continue to improve with added height to their 2024-2025 roster. But, can Coach Hoiberg figure out how to get more second chance opportunities which will lead to more points for the Huskers. If this trend continues, Nebraska will struggle to reach the goals they set for themselves.</p>
 
 
 
